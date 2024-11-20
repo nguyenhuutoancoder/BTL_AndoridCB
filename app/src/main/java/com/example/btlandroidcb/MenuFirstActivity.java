@@ -1,5 +1,6 @@
 package com.example.btlandroidcb;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class MenuFirstActivity extends AppCompatActivity {
   TextView txttable;
-  ImageButton btnReturn, btnPlus;
+  ImageButton btnReturn, btnMenu, btnOrder, btnThanhtoan;
   Button  btnPhobien, btnKhaivi, btnMonchinh, btnDouong;
   RecyclerView rcvfood;
   FoodAdapter myAdapter;
@@ -135,17 +136,56 @@ public class MenuFirstActivity extends AppCompatActivity {
         mListFoodDouong.add(new Food(R.drawable.epoi, "Nước ép ổi",35000 ));
         mListFoodDouong.add(new Food(R.drawable.sinhtomangcau, "Sinh tố mãng cầu",47000 ));
 
-         myAdapter = new FoodAdapter( mListFoodPhobien );
+         myAdapter = new FoodAdapter(mListFoodPhobien);
         rcvfood.setAdapter(myAdapter);
 
        selectButton(btnPhobien, mListFoodPhobien);
+       btnMenu = findViewById(R.id.btn_menu);
+       btnMenu.setBackgroundResource(R.drawable.background_button_chuyendoi);
 
         btnPhobien.setOnClickListener(view -> selectButton(btnPhobien, mListFoodPhobien));
         btnKhaivi.setOnClickListener(view -> selectButton(btnKhaivi, mListFoodKhaivi));
         btnMonchinh.setOnClickListener(view -> selectButton(btnMonchinh, mListFoodMonchinh));
         btnDouong.setOnClickListener(view -> selectButton(btnDouong, mListFoodDouong));
 
-        btnReturn = findViewById(R.id.btnReturn);
+        btnMenu.setOnClickListener(view -> {
+            resetButtonBackgrounds();
+            btnMenu.setBackgroundResource(R.drawable.background_button_chuyendoi);
+        });
+        btnOrder = findViewById(R.id.btn_order);
+        btnOrder.setOnClickListener(view -> {
+            resetButtonBackgrounds();
+            btnOrder.setBackgroundResource(R.drawable.background_button_chuyendoi);
+            ArrayList<Food> selectedFoods = new ArrayList<>();
+            // Gộp các món được chọn từ các danh sách khác nhau
+            for (Food food : mListFoodPhobien) {
+                if (food.getQuantity() > 0) {
+                    selectedFoods.add(food);
+                }
+            }
+            for (Food food : mListFoodKhaivi) {
+                if (food.getQuantity() > 0) {
+                    selectedFoods.add(food);
+                }
+            }
+            for (Food food : mListFoodMonchinh) {
+                if (food.getQuantity() > 0) {
+                    selectedFoods.add(food);
+                }
+            }
+            for (Food food : mListFoodDouong) {
+                if (food.getQuantity() > 0) {
+                    selectedFoods.add(food);
+                }
+            }
+            Intent intentOrder = new Intent(MenuFirstActivity.this, OrderActivity.class);
+            intentOrder.putParcelableArrayListExtra("selectedFoods", selectedFoods);
+            startActivity(intentOrder);
+
+        });
+        btnThanhtoan = findViewById(R.id.btn_thanhtoan);
+
+        btnReturn = findViewById(R.id.btnBack);
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,6 +194,8 @@ public class MenuFirstActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     // Hàm cập nhật RecyclerView và viền cho nút được chọn
     private void selectButton(Button selectedButton, List<Food> foodlist) {
@@ -171,6 +213,19 @@ public class MenuFirstActivity extends AppCompatActivity {
     public void updateRecyclerView(List<Food> newList) {
         myAdapter.setData(newList);
         myAdapter.notifyDataSetChanged();
+    }
+    private void resetButtonBackgrounds() {
+        btnMenu.setBackgroundResource(R.drawable.button_default);
+        btnOrder.setBackgroundResource(R.drawable.button_default);
+        btnThanhtoan.setBackgroundResource(R.drawable.button_default);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Khi quay lại MenuFirstActivity, btnMenu sẽ có background
+        resetButtonBackgrounds();
+        btnMenu.setBackgroundResource(R.drawable.background_button_chuyendoi);
     }
 
     }

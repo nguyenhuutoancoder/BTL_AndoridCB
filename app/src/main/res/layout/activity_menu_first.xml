@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btnReturn"
+                android:id="@+id/btnBack"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -115,10 +115,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_food"
             android:layout_width="match_parent"
-            android:layout_height="426dp"
-            android:layout_marginTop="15dp"
+            android:layout_height="420dp"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp" />
 
         <TableLayout
             android:layout_width="match_parent"
@@ -134,22 +134,32 @@
                     android:id="@+id/btn_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:background="#FFEB3B"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     app:srcCompat="@drawable/baseline_fastfood_24" />
 
                 <ImageButton
                     android:id="@+id/btn_order"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:background="#FFEB3B"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     app:srcCompat="@drawable/baseline_shopping_cart_24" />
 
                 <ImageButton
                     android:id="@+id/btn_thanhtoan"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:background="#FFEB3B"
                     app:srcCompat="@drawable/baseline_hoadon_24" />
@@ -157,8 +167,7 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="5dp">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView3"
